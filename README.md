@@ -1,6 +1,6 @@
 # Dartmouth AI backend
 
-This is a collection of simple command line tools to run basic machine learning tasks.
+This is a collection of simple tools to run basic machine learning tasks.
 
 ## Contents
 

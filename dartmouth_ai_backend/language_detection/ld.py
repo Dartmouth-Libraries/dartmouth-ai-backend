@@ -18,21 +18,4 @@ class LanguageDetector:
 
 
 if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser(
-        prog='ld',
-        description='Language detection',
-        epilog='Detects the language of a given text.'
-        )
-
-    parser.add_argument('textfile', metavar='txt', type=str,
-                        help='The name of the text file to process.')
-
-    args = parser.parse_args()
-
-    with open(args.textfile) as f:
-        raw_text = f.read()
-
-    ld = LanguageDetector()
-    print(*ld.detect(raw_text))
+    pass

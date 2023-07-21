@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0", "Pillow", "spacy", "spacy_fastlang", "torch", "transformers"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dartmouth_ai_backend"
+version = "0.0.1"
+authors = [
+  { name="Simon Stone", email="simon.stone@dartmouth.edu" },
+]
+description = "A collection of AI tools"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 2 - Pre-Alpha"
+]
+dependencies = [
+    "setuptools>=61.0",
+    "Pillow",
+    "spacy",
+    "spacy_fastlang",
+    "en_core_web_trf @ https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.7.0/en_core_web_trf-3.7.0-py3-none-any.whl",
+    "torch",
+    "transformers"
+]
+
+[project.urls]
+"Homepage" = "https://git.dartmouth.edu/lib-digital-strategies/RDS/projects/dartmouth-ai-backend"
+"Bug Tracker" = "https://git.dartmouth.edu/lib-digital-strategies/RDS/projects/dartmouth-ai-backend/-/issues"
