@@ -1,5 +1,6 @@
 Pillow==10.0.0
 spacy==3.6.0
+spacytextblob==4.0.0
 spacy-fastlang==1.0.1
 en_core_web_trf @ https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.7.0/en_core_web_trf-3.7.0-py3-none-any.whl
 torch==2.0.1
