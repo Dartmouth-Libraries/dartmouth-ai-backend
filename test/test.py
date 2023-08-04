@@ -1,7 +1,14 @@
+from dartmouth_ai_backend.object_detection import ObjectDetector
 from dartmouth_ai_backend.language_detection import LanguageDetector
 from dartmouth_ai_backend.named_entity_recognition import NamedEntityRecognizer
 
 import json
+
+
+def test_object_detection():
+    result = ObjectDetector().detect("test/object_detection_sample.jpg")
+    assert result
+
 
 def test_language_detection():
     with open("test/de.txt") as f:
