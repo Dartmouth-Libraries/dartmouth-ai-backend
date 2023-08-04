@@ -14,7 +14,9 @@ class SentimentAnalyzer:
 
     def analyze(self, text):
         analyzed = self.__nlp(text)
-        return analyzed._.blob.polarity, analyzed._.blob.subjectivity
+        return {
+            analyzed._.blob.polarity, analyzed._.blob.subjectivity
+        }
 
 
 if __name__ == "__main__":
