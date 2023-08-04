@@ -8,13 +8,13 @@ def test_language_detection():
         de_text = f.read()
 
     r = LanguageDetector().detect(de_text)
-    assert r[0], "de"
+    assert r["language"], "de"
 
     with open("test/en.txt") as f:
         en_text = f.read()
 
     r = LanguageDetector().detect(en_text)
-    assert r[0], "en"
+    assert r["language"], "en"
 
 
 def test_named_entity_recognition():
