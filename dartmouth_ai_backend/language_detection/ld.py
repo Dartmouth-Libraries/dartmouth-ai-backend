@@ -14,7 +14,10 @@ class LanguageDetector:
 
     def detect(self, text):
         detected = self.__nlp(text)
-        return detected._.language, detected._.language_score
+        return {
+            "language": detected._.language,
+            "score": detected._.language_score
+        }
 
 
 if __name__ == "__main__":
