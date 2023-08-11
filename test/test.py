@@ -2,7 +2,7 @@ from dartmouth_ai_backend.object_detection import ObjectDetector
 from dartmouth_ai_backend.language_detection import LanguageDetector
 from dartmouth_ai_backend.named_entity_recognition import NamedEntityRecognizer
 
-import json
+from pathlib import Path
 
 
 def test_language_detection():
@@ -29,8 +29,7 @@ def test_named_entity_recognition():
 
 
 def test_object_detection():
-    result = ObjectDetector().detect("test/object_detection_sample.jpg")
-    print(result)
+    result = ObjectDetector().detect(Path(__file__).parent.resolve() / "object_detection_sample.jpg")
     assert result
 
 

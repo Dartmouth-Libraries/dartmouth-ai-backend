@@ -1,12 +1,21 @@
 from transformers import YolosImageProcessor, YolosForObjectDetection
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 import torch
+
+import base64
+import io
+from pathlib import Path
+
+
+def px_to_pt(px):
+    return px * 0.75
 
 
 class ObjectDetector:
     def __init__(self):
         self.__model = YolosForObjectDetection.from_pretrained('hustvl/yolos-tiny')
         self.__image_processor = YolosImageProcessor.from_pretrained("hustvl/yolos-tiny")
+        self.__relative_font_size = 0.1
 
     def detect(self, image):
         image = Image.open(image)
@@ -20,14 +29,27 @@ class ObjectDetector:
 
         objects = dict()
 
+        draw = ImageDraw.Draw(image)
+        font_path = str(Path(__file__).parent.parent.resolve() / "resources/AppleGaramond.ttf")
+
         for score, label, box in zip(results["scores"],
                                      results["labels"],
                                      results["boxes"]):
             box = [round(i, 2) for i in box.tolist()]
-            objects[self.__model.config.id2label[label.item()]] = {
+            label_name = self.__model.config.id2label[label.item()]
+
+            font_size_px = (box[3] - box[1]) * self.__relative_font_size
+            font = ImageFont.truetype(font_path, size=px_to_pt(font_size_px))
+            draw.rectangle(box, outline='green', width=2)
+            draw.text(box[:2], label_name, fill='green', font=font)
+            byte_buffer = io.BytesIO()
+            image.save(byte_buffer, format=image.format)
+            objects[label_name] = {
                 'score': score.item(),
                 'bbox': box
             }
+            objects['annotated_image'] = base64.b64encode(byte_buffer.getvalue()).decode()
+
         return objects
 
 
