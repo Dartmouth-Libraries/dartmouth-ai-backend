@@ -6,3 +6,4 @@ en_core_web_trf @ https://github.com/explosion/spacy-models/releases/download/en
 torch==2.0.1
 transformers==4.31.0
 openai-whisper==20230918
+librosa==0.10.1
