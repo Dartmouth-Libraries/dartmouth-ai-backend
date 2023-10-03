@@ -1,6 +1,7 @@
 from dartmouth_ai_backend.object_detection import ObjectDetector
 from dartmouth_ai_backend.language_detection import LanguageDetector
 from dartmouth_ai_backend.named_entity_recognition import NamedEntityRecognizer
+from dartmouth_ai_backend.speech_recognition import SpeechRecognizer
 
 from pathlib import Path
 
@@ -29,7 +30,16 @@ def test_named_entity_recognition():
 
 
 def test_object_detection():
-    result = ObjectDetector().detect(Path(__file__).parent.resolve() / "object_detection_sample.jpg")
+    result = ObjectDetector().detect(
+        Path(__file__).parent.resolve() / "object_detection_sample.jpg"
+    )
+    assert result
+
+
+def test_speech_recognition():
+    result = SpeechRecognizer(model="tiny").transcribe(
+        Path(__file__).parent.resolve() / "speech_recognition_sample.flac"
+    )
     assert result
 
 
@@ -37,3 +47,4 @@ if __name__ == "__main__":
     test_language_detection()
     test_named_entity_recognition()
     test_object_detection()
+    test_speech_recognition()

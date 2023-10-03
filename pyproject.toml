@@ -10,7 +10,7 @@ authors = [
 ]
 description = "A collection of AI tools"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -26,6 +26,7 @@ dependencies = [
     "en_core_web_trf @ https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.7.0/en_core_web_trf-3.7.0-py3-none-any.whl",
     "torch",
     "transformers"
+    "soundfile"
 ]
 
 [project.urls]
