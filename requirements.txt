@@ -5,3 +5,4 @@ spacy-fastlang==1.0.1
 en_core_web_trf @ https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.7.0/en_core_web_trf-3.7.0-py3-none-any.whl
 torch==2.0.1
 transformers==4.31.0
+openai-whisper==20230918

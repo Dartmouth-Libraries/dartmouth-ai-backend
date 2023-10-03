@@ -38,8 +38,15 @@ def test_object_detection():
 
 def test_speech_recognition():
     result = SpeechRecognizer(model="tiny").transcribe(
-        Path(__file__).parent.resolve() / "speech_recognition_sample.flac"
+        str(Path(__file__).parent.resolve() / "speech_recognition_sample.flac")
     )
+    print(result)
+
+    result = SpeechRecognizer(model="medium").transcribe(
+        str(Path(__file__).parent.resolve() / "speech_translation_sample.mp3"),
+        task="translate"
+    )
+    print(result)
     assert result
 
 
