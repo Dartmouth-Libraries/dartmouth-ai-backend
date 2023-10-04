@@ -12,9 +12,11 @@ def px_to_pt(px):
 
 
 class ObjectDetector:
-    def __init__(self):
-        self.__model = YolosForObjectDetection.from_pretrained('hustvl/yolos-tiny')
-        self.__image_processor = YolosImageProcessor.from_pretrained("hustvl/yolos-tiny")
+    def __init__(self, model_cache=None):
+        self.__model = YolosForObjectDetection.from_pretrained('hustvl/yolos-tiny',
+                                                               cache_dir=model_cache)
+        self.__image_processor = YolosImageProcessor.from_pretrained("hustvl/yolos-tiny",
+                                                                     cache_dir=model_cache)
         self.__relative_font_size = 0.1
 
     def detect(self, image):

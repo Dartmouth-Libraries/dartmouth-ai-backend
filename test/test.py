@@ -42,6 +42,11 @@ def test_speech_recognition():
     )
     print(result)
 
+    result = SpeechRecognizer(model="tiny", model_cache=".cache/").transcribe(
+        str(Path(__file__).parent.resolve() / "speech_recognition_sample.flac")
+    )
+    print(result)
+
     result = SpeechRecognizer(model="medium").transcribe(
         str(Path(__file__).parent.resolve() / "speech_translation_sample.mp3"),
         task="translate"
