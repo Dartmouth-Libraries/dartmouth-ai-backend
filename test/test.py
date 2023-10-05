@@ -7,13 +7,13 @@ from pathlib import Path
 
 
 def test_language_detection():
-    with open("test/de.txt") as f:
+    with open(Path(__file__).parent.resolve() / "de.txt") as f:
         de_text = f.read()
 
     r = LanguageDetector().detect(de_text)
     assert r["language"], "de"
 
-    with open("test/en.txt") as f:
+    with open(Path(__file__).parent.resolve() / "en.txt") as f:
         en_text = f.read()
 
     r = LanguageDetector().detect(en_text)
@@ -21,7 +21,7 @@ def test_language_detection():
 
 
 def test_named_entity_recognition():
-    with open("test/wiki.txt") as f:
+    with open(Path(__file__).parent.resolve() / "wiki.txt") as f:
         raw_text = f.read()
 
     ner = NamedEntityRecognizer()
@@ -49,7 +49,7 @@ def test_speech_recognition():
 
     result = SpeechRecognizer(model="medium").transcribe(
         str(Path(__file__).parent.resolve() / "speech_translation_sample.mp3"),
-        task="translate"
+        task="translate",
     )
     print(result)
     assert result
