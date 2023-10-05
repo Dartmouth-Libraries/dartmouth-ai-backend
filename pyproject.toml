@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0", "Pillow", "spacy", "spacy_fastlang", "torch", "transformers"]
+requires = ["setuptools>=61.0", "setuptools-scm>=8.0", "Pillow", "spacy", "spacy_fastlang", "torch", "transformers", "librosa", "openai-whisper"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -26,7 +26,8 @@ dependencies = [
     "en_core_web_trf @ https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.7.0/en_core_web_trf-3.7.0-py3-none-any.whl",
     "torch",
     "transformers",
-    "soundfile"
+    "librosa",
+    "openai-whisper"
 ]
 
 [project.urls]
