@@ -33,3 +33,6 @@ dependencies = [
 [project.urls]
 "Homepage" = "https://git.dartmouth.edu/lib-digital-strategies/RDS/projects/dartmouth-ai-backend"
 "Bug Tracker" = "https://git.dartmouth.edu/lib-digital-strategies/RDS/projects/dartmouth-ai-backend/-/issues"
+
+[tool.setuptools.package-data]
+"*" = ["*.ttf"]
