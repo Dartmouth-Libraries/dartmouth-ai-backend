@@ -4,12 +4,14 @@ from spacy import displacy
 
 
 class NamedEntityRecognizer:
-    def __init__(self, lang='en'):
-        if lang != 'en':
-            raise NotImplementedError("Named Entity Recognition is currently "
-                                      "only supported for English texts.")
+    def __init__(self, lang="en"):
+        if lang != "en":
+            raise NotImplementedError(
+                "Named Entity Recognition is currently "
+                "only supported for English texts."
+            )
 
-        self.__nlp = spacy.load("en_core_web_trf")
+        self.__nlp = spacy.load("en_core_web_trf", disable=["parser"])
 
     def recognize(self, text):
         recognized = self.__nlp(text)
@@ -19,11 +21,8 @@ class NamedEntityRecognizer:
             tags.add(entity.label_)
 
         result = dict()
-        result['tag_key'] = {
-            tag: spacy.explain(tag)
-            for tag in sorted(tags)
-        }
-        result['html'] = displacy.render(recognized, style="ent")
+        result["tag_key"] = {tag: spacy.explain(tag) for tag in sorted(tags)}
+        result["html"] = displacy.render(recognized, style="ent")
 
         return result
 

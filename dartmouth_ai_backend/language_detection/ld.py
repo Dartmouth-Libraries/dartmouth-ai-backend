@@ -6,7 +6,7 @@ class LanguageDetector:
     """Detects the language a text is written in."""
 
     def __init__(self):
-        self.__nlp = spacy.load("en_core_web_trf")
+        self.__nlp = spacy.blank("xx")
         self.__nlp.add_pipe("language_detector")
 
     def detect(self, text: str) -> dict:

@@ -160,3 +160,7 @@ cython_debug/
 #.idea/
 
 .DS_Store
+
+# Ignore generated benchmarking files
+benchmark/benchmark_files/*/*
+benchmark/results/
