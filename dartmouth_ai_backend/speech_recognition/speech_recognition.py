@@ -1,5 +1,6 @@
 import whisper
 import torch
+import torchaudio
 import librosa
 
 
@@ -17,7 +18,11 @@ class SpeechRecognizer:
         )
 
     def transcribe(self, speech_file, task="transcribe", language=None) -> str:
-        waveform, sample_rate = librosa.load(speech_file, mono=True, sr=16000)
+        # Librosa does not support loading MP3 from a BytesIO object, so go through torchaudio instead
+        waveform, sample_rate = torchaudio.load(speech_file)
+        # Mono conversion and resampling is more convenient in librosa
+        waveform = librosa.to_mono(waveform.numpy())
+        waveform = librosa.resample(waveform, orig_sr=sample_rate, target_sr=16_000)
         transcription = self.__model.transcribe(waveform, task=task, language=language)
 
         return transcription
