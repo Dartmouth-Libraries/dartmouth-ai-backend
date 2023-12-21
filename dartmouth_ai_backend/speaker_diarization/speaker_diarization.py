@@ -24,7 +24,7 @@ class SpeakerDiarizer:
         """
 
         if use_auth_token is None:
-            use_auth_token = os.getenv("HUGGINGFACE_TOKEN")
+            use_auth_token = os.getenv("HUGGINGFACE_AUTH_TOKEN")
 
         if model_cache is None:
             model_cache = ".cache/hf/hub"
@@ -61,7 +61,7 @@ class SpeakerDiarizer:
 
         if transcript is not None:
             transcript = self._assign_word_speakers(diarization, transcript)
-
+            return transcript
         return diarization
 
     @staticmethod

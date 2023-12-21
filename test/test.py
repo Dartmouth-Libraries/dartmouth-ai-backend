@@ -4,7 +4,12 @@ from dartmouth_ai_backend.named_entity_recognition import NamedEntityRecognizer
 from dartmouth_ai_backend.speaker_diarization import SpeakerDiarizer
 from dartmouth_ai_backend.speech_recognition import SpeechRecognizer
 
+from dotenv import load_dotenv
+
 from pathlib import Path
+
+
+load_dotenv(Path(__file__).parent.parent / "secrets.env")
 
 
 def test_language_detection():
@@ -41,16 +46,17 @@ def test_speaker_diarization():
     transcript = SpeechRecognizer(model="tiny", model_cache=".cache/").transcribe(
         str(Path(__file__).parent.resolve() / "speaker_diarization_sample.wav")
     )
-    result = SpeakerDiarizer(device="mps").diarize(
+    result = SpeakerDiarizer().diarize(
         str(Path(__file__).parent.resolve() / "speaker_diarization_sample.wav"),
         transcript=transcript,
     )
-    assert not result.empty
+    assert result
 
 
 def test_speech_recognition():
     result = SpeechRecognizer(model="tiny", model_cache=".cache/").transcribe(
-        str(Path(__file__).parent.resolve() / "speech_recognition_sample.flac")
+        str(Path(__file__).parent.resolve() / "speech_recognition_sample.flac"),
+        diarize=True,
     )
 
     result = SpeechRecognizer(model="medium", model_cache=".cache/").transcribe(
@@ -61,8 +67,8 @@ def test_speech_recognition():
 
 
 if __name__ == "__main__":
-    # test_language_detection()
-    # test_named_entity_recognition()
-    # test_object_detection()
-    # test_speech_recognition()
+    test_language_detection()
+    test_named_entity_recognition()
+    test_object_detection()
+    test_speech_recognition()
     test_speaker_diarization()
