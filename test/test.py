@@ -1,6 +1,7 @@
 from dartmouth_ai_backend.object_detection import ObjectDetector
 from dartmouth_ai_backend.language_detection import LanguageDetector
 from dartmouth_ai_backend.named_entity_recognition import NamedEntityRecognizer
+from dartmouth_ai_backend.speaker_diarization import SpeakerDiarizer
 from dartmouth_ai_backend.speech_recognition import SpeechRecognizer
 
 from pathlib import Path
@@ -36,27 +37,32 @@ def test_object_detection():
     assert result
 
 
-def test_speech_recognition():
-    result = SpeechRecognizer(model="tiny").transcribe(
-        str(Path(__file__).parent.resolve() / "speech_recognition_sample.flac")
+def test_speaker_diarization():
+    transcript = SpeechRecognizer(model="tiny", model_cache=".cache/").transcribe(
+        str(Path(__file__).parent.resolve() / "speaker_diarization_sample.wav")
     )
-    print(result)
+    result = SpeakerDiarizer(device="mps").diarize(
+        str(Path(__file__).parent.resolve() / "speaker_diarization_sample.wav"),
+        transcript=transcript,
+    )
+    assert not result.empty
 
+
+def test_speech_recognition():
     result = SpeechRecognizer(model="tiny", model_cache=".cache/").transcribe(
         str(Path(__file__).parent.resolve() / "speech_recognition_sample.flac")
     )
-    print(result)
 
-    result = SpeechRecognizer(model="medium").transcribe(
+    result = SpeechRecognizer(model="medium", model_cache=".cache/").transcribe(
         str(Path(__file__).parent.resolve() / "speech_translation_sample.mp3"),
         task="translate",
     )
-    print(result)
     assert result
 
 
 if __name__ == "__main__":
-    test_language_detection()
-    test_named_entity_recognition()
-    test_object_detection()
-    test_speech_recognition()
+    # test_language_detection()
+    # test_named_entity_recognition()
+    # test_object_detection()
+    # test_speech_recognition()
+    test_speaker_diarization()
