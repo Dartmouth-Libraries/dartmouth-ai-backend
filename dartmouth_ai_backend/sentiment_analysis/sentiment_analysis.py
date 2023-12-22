@@ -22,6 +22,16 @@ class SentimentAnalyzer:
             "subjectivity": analyzed._.blob.subjectivity,
         }
 
+    @staticmethod
+    def how_to_cite(format="bibtex") -> str:
+        if format != "bibtex":
+            return NotImplemented
+        return """@misc{spacy,
+    author = {Honnibal, Matthew and Montani, Ines and Van Landeghem, Sofie and Boyd, Adriane},
+    doi = {10.5281/zenodo.1212303},
+    title = {spaCy: Industrial-strength Natural Language Processing in Python}
+}"""
+
 
 if __name__ == "__main__":
     import argparse

@@ -26,3 +26,17 @@ class SpeechRecognizer:
         transcription = self.__model.transcribe(waveform, task=task, language=language)
 
         return transcription
+
+    @staticmethod
+    def how_to_cite(format="bibtex") -> str:
+        if format != "bibtex":
+            return NotImplemented
+        return """@article{radford2022whisper,
+    doi = {10.48550/ARXIV.2212.04356},
+    url = {https://arxiv.org/abs/2212.04356},
+    author = {Radford, Alec and Kim, Jong Wook and Xu, Tao and Brockman, Greg and McLeavey, Christine and Sutskever, Ilya},
+    title = {Robust Speech Recognition via Large-Scale Weak Supervision},
+    publisher = {arXiv},
+    year = {2022},
+    copyright = {arXiv.org perpetual, non-exclusive license}
+}"""

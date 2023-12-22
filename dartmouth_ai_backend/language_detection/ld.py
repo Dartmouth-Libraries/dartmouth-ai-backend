@@ -21,6 +21,17 @@ class LanguageDetector:
         detected = self.__nlp(text)
         return {"language": detected._.language, "score": detected._.language_score}
 
+    @staticmethod
+    def how_to_cite(format="bibtex") -> str:
+        if format != "bibtex":
+            return NotImplemented
+        return """@article{joulin2016fasttext,
+    title={FastText.zip: Compressing text classification models},
+    author={Joulin, Armand and Grave, Edouard and Bojanowski, Piotr and Douze, Matthijs and J{\'e}gou, H{\'e}rve and Mikolov, Tomas},
+    journal={arXiv preprint arXiv:1612.03651},
+    year={2016}
+}"""
+
 
 if __name__ == "__main__":
     pass
