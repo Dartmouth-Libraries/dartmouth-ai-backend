@@ -20,8 +20,8 @@ def test_citations():
         NamedEntityRecognizer,
         SentimentAnalyzer,
         SpeechRecognizer,
+        SpeakerDiarizer,
     ]:
-        print(obj.how_to_cite())
         assert obj.how_to_cite()
 
 

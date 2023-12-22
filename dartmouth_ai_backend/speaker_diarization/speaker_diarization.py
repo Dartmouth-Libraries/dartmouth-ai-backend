@@ -65,6 +65,17 @@ class SpeakerDiarizer:
         return diarization
 
     @staticmethod
+    def how_to_cite(format="bibtex") -> str:
+        if format != "bibtex":
+            return NotImplemented
+        return """@inproceedings{Bredin23,
+  author={Hervé Bredin},
+  title={{pyannote.audio 2.1 speaker diarization pipeline: principle, benchmark, and recipe}},
+  year=2023,
+  booktitle={Proc. INTERSPEECH 2023},
+}"""
+
+    @staticmethod
     def _assign_word_speakers(
         diarize_df: pd.DataFrame, transcript_result: dict[str, str | list]
     ) -> list:

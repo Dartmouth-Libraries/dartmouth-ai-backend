@@ -5,7 +5,8 @@ import librosa
 
 from ..speaker_diarization import SpeakerDiarizer
 
-from typing import Union, BinaryIO, Optional, PathLike
+from typing import Union, BinaryIO, Optional
+from os import PathLike
 
 
 class SpeechRecognizer:
