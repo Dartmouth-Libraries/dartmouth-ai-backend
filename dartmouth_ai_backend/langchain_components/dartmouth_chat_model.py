@@ -2,6 +2,8 @@ from langchain.llms import HuggingFaceTextGenInference
 
 from dartmouth_ai_backend.base import auth
 
+from typing import Callable
+
 
 class DartmouthChatModel(HuggingFaceTextGenInference):
     """
@@ -9,6 +11,7 @@ class DartmouthChatModel(HuggingFaceTextGenInference):
     interaction with Dartmouth's instance of Text Generation Inference
     """
 
+    authenticator: Callable = None
     dartmouth_api_key: str = None
 
     def __init__(
@@ -16,6 +19,7 @@ class DartmouthChatModel(HuggingFaceTextGenInference):
         *args,
         dartmouth_api_key: str = None,
         model_name="llama-2-13b-chat-hf",
+        authenticator: Callable = None,
         **kwargs,
     ):
         """
@@ -25,14 +29,23 @@ class DartmouthChatModel(HuggingFaceTextGenInference):
             dartmouth_api_key (str, optional): A valid Dartmouth API key (see https://developer.dartmouth.edu/keys).
                 If not specified, it is attempted to be inferred from an environment variable DARTMOUTH_API_KEY.
             model_name (str, optional): Name of the model to use. Defaults to "llama-2-13b-chat-hf".
+            authenticator (Callable, optional): A Callable that returns a valid JWT to use for authentication.
+                If specified, `dartmouth_api_key` is ignored.
         """
         kwargs[
             "inference_server_url"
         ] = f"https://ai-api.dartmouth.edu/tgi/{model_name}/generate_stream"
         kwargs["streaming"] = True
         super().__init__(*args, **kwargs)
+        self.authenticator = authenticator
         self.dartmouth_api_key = dartmouth_api_key
-        jwt = auth.get_jwt(dartmouth_api_key=self.dartmouth_api_key)
+        self.authenticate()
+
+    def authenticate(self):
+        if self.authenticator:
+            jwt = self.authenticator()
+        else:
+            jwt = auth.get_jwt(dartmouth_api_key=self.dartmouth_api_key)
         self.client.headers = {"Authorization": f"Bearer {jwt}"}
 
     def predict(self, text: str, **kwargs) -> str:
@@ -50,6 +63,5 @@ class DartmouthChatModel(HuggingFaceTextGenInference):
         try:
             return super().predict(text, **kwargs)
         except KeyError:
-            jwt = auth.get_jwt(dartmouth_api_key=self.dartmouth_api_key)
-            self.client.headers = {"Authorization": f"Bearer {jwt}"}
+            self.authenticate()
             return super().predict(text, **kwargs)
