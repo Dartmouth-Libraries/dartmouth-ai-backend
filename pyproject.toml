@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0", "setuptools-scm>=8.0", "Pillow", "spacy", "spacy_fastlang", "torch", "transformers", "librosa", "openai-whisper", "python-dotenv", "pyannote.audio", "torchaudio"]
+requires = ["setuptools>=61.0", "setuptools-scm>=8.0", "Pillow", "spacy", "spacy_fastlang", "torch", "transformers", "langchain", "text_generation", "librosa", "openai-whisper", "python-dotenv", "pyannote.audio", "torchaudio"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -30,7 +30,9 @@ dependencies = [
     "librosa",
     "openai-whisper",
     "python-dotenv",
-    "pyannote.audio"
+    "pyannote.audio",
+    "langchain",
+    "text_generation"
 ]
 
 [project.urls]
