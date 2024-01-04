@@ -1,4 +1,6 @@
 from dartmouth_ai_backend.object_detection import ObjectDetector
+from dartmouth_ai_backend.base.auth import get_jwt
+from dartmouth_ai_backend.langchain_components import DartmouthChatModel
 from dartmouth_ai_backend.language_detection import LanguageDetector
 from dartmouth_ai_backend.named_entity_recognition import NamedEntityRecognizer
 from dartmouth_ai_backend.sentiment_analysis import SentimentAnalyzer
@@ -13,6 +15,11 @@ from pathlib import Path
 load_dotenv(Path(__file__).parent.parent / "secrets.env")
 
 
+def test_auth():
+    jwt = get_jwt()
+    assert jwt
+
+
 def test_citations():
     for obj in [
         ObjectDetector,
@@ -23,6 +30,16 @@ def test_citations():
         SpeakerDiarizer,
     ]:
         assert obj.how_to_cite()
+
+
+def test_dartmouth_chat():
+    llm = DartmouthChatModel()
+    response = llm.predict("<s>[INST]Please respond with the single word OK[/INST]")
+    assert response.strip() == "OK"
+
+    llm = DartmouthChatModel(model_name="codellama-13b-instruct-hf")
+    response = llm.predict("Please respond with the single word OK")
+    assert response.strip() == "OK"
 
 
 def test_language_detection():
@@ -80,9 +97,11 @@ def test_speech_recognition():
 
 
 if __name__ == "__main__":
-    test_language_detection()
-    test_named_entity_recognition()
-    test_object_detection()
-    test_speech_recognition()
-    test_speaker_diarization()
-    test_citations()
+    test_auth()
+    test_dartmouth_chat()
+    # test_language_detection()
+    # test_named_entity_recognition()
+    # test_object_detection()
+    # test_speech_recognition()
+    # test_speaker_diarization()
+    # test_citations()
