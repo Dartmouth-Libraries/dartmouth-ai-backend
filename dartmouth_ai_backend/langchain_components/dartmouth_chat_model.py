@@ -39,7 +39,8 @@ class DartmouthChatModel(HuggingFaceTextGenInference):
         """Predict a response to a query.
 
         Args:
-            text (str): The initial text, i.e., user query. If not properly formatted, it is wrapped in Llama-
+            text (str): The initial text, i.e., user query. If not properly formatted, it is wrapped in Llama-compatible tags:
+            '<s>[INST]USER PROMPT GOES HERE[/INST]'
 
         Returns:
             str: The predicted continuation, i.e. model response.
