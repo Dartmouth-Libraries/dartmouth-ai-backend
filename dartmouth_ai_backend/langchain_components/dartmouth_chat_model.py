@@ -20,6 +20,7 @@ class DartmouthChatModel(HuggingFaceTextGenInference):
         dartmouth_api_key: str = None,
         model_name="llama-2-13b-chat-hf",
         authenticator: Callable = None,
+        inference_server_url: str = None,
         **kwargs,
     ):
         """
@@ -31,10 +32,15 @@ class DartmouthChatModel(HuggingFaceTextGenInference):
             model_name (str, optional): Name of the model to use. Defaults to "llama-2-13b-chat-hf".
             authenticator (Callable, optional): A Callable that returns a valid JWT to use for authentication.
                 If specified, `dartmouth_api_key` is ignored.
+            inference_server_url (str, optional): URL pointing to an inference endpoint. Defaults to 'https://ai-api.dartmouth.edu/tgi/{model_name}/generate_stream'.
         """
-        kwargs[
-            "inference_server_url"
-        ] = f"https://ai-api.dartmouth.edu/tgi/{model_name}/generate_stream"
+        if inference_server_url:
+            kwargs["inference_server_url"] = inference_server_url
+        else:
+            kwargs[
+                "inference_server_url"
+            ] = f"https://ai-api.dartmouth.edu/tgi/{model_name}/generate_stream"
+
         kwargs["streaming"] = True
         super().__init__(*args, **kwargs)
         self.authenticator = authenticator
