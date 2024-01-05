@@ -25,3 +25,4 @@ pip install .
 ```
 DARTMOUTH_API_KEY = <your_key_here>
 ```
+2. Run the test script `test/test.py`
