@@ -13,6 +13,7 @@ class DartmouthChatModel(HuggingFaceTextGenInference):
 
     authenticator: Callable = None
     dartmouth_api_key: str = None
+    jwt_url: str = None
 
     def __init__(
         self,
