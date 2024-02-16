@@ -20,6 +20,7 @@ class DartmouthChatModel(HuggingFaceTextGenInference):
         dartmouth_api_key: str = None,
         model_name="llama-2-13b-chat-hf",
         authenticator: Callable = None,
+        jwt_url: str = None,
         inference_server_url: str = None,
         **kwargs,
     ):
@@ -37,21 +38,23 @@ class DartmouthChatModel(HuggingFaceTextGenInference):
         if inference_server_url:
             kwargs["inference_server_url"] = inference_server_url
         else:
-            kwargs[
-                "inference_server_url"
-            ] = f"https://ai-api.dartmouth.edu/tgi/{model_name}/generate_stream"
+            kwargs["inference_server_url"] = (
+                f"https://ai-api.dartmouth.edu/tgi/{model_name}/generate_stream"
+            )
 
         kwargs["streaming"] = True
         super().__init__(*args, **kwargs)
         self.authenticator = authenticator
         self.dartmouth_api_key = dartmouth_api_key
-        self.authenticate()
+        self.authenticate(jwt_url=jwt_url)
 
-    def authenticate(self):
+    def authenticate(self, jwt_url=None):
         if self.authenticator:
             jwt = self.authenticator()
         else:
-            jwt = auth.get_jwt(dartmouth_api_key=self.dartmouth_api_key)
+            jwt = auth.get_jwt(
+                dartmouth_api_key=self.dartmouth_api_key, jwt_url=jwt_url
+            )
         self.client.headers = {"Authorization": f"Bearer {jwt}"}
 
     def predict(self, text: str, **kwargs) -> str:

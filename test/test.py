@@ -41,6 +41,12 @@ def test_dartmouth_chat():
     response = llm.predict("Please respond with the single word OK")
     assert response.strip() == "OK"
 
+    llm = DartmouthChatModel(
+        inference_server_url="https://ai-api.dartmouth.edu/tgi/codellama-13b-instruct-hf/generate"
+    )
+    llm.streaming = False
+    print(llm.predict("Hello"))
+
 
 def test_language_detection():
     with open(Path(__file__).parent.resolve() / "de.txt") as f:
