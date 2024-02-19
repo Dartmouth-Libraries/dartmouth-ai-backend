@@ -1,4 +1,4 @@
-from langchain.llms import HuggingFaceTextGenInference
+from langchain_community.llms import HuggingFaceTextGenInference
 
 from dartmouth_ai_backend.base import auth
 
@@ -40,10 +40,8 @@ class DartmouthChatModel(HuggingFaceTextGenInference):
             kwargs["inference_server_url"] = inference_server_url
         else:
             kwargs["inference_server_url"] = (
-                f"https://ai-api.dartmouth.edu/tgi/{model_name}/generate_stream"
+                f"https://ai-api.dartmouth.edu/tgi/{model_name}/"
             )
-
-        kwargs["streaming"] = True
         super().__init__(*args, **kwargs)
         self.authenticator = authenticator
         self.dartmouth_api_key = dartmouth_api_key
@@ -58,20 +56,20 @@ class DartmouthChatModel(HuggingFaceTextGenInference):
             )
         self.client.headers = {"Authorization": f"Bearer {jwt}"}
 
-    def predict(self, text: str, **kwargs) -> str:
-        """Predict a response to a query.
+    def invoke(self, text: str, **kwargs) -> str:
+        """Invokes the model to get a response to a query.
 
         Args:
             text (str): The initial text, i.e., user query. If not properly formatted, it is wrapped in Llama-compatible tags:
             '<s>[INST]USER PROMPT GOES HERE[/INST]'
 
         Returns:
-            str: The predicted continuation, i.e. model response.
+            str: The model response.
         """
         if not text.startswith("<s>[INST]"):
             text = f"<s>[INST]{text}[/INST]"
         try:
-            return super().predict(text, **kwargs)
+            return super().invoke(text, **kwargs)
         except KeyError:
             self.authenticate()
-            return super().predict(text, **kwargs)
+            return super().invoke(text, **kwargs)
