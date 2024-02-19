@@ -33,7 +33,6 @@ curated-tokenizers==0.0.8
 curated-transformers==0.1.1
 cycler==0.12.1
 cymem==2.0.7
--e git+ssh://git@git.dartmouth.edu/lib-digital-strategies/RDS/projects/dartmouth-ai-backend.git@3634a589ed9a5946a8124ae35bbab25289f6e779#egg=dartmouth_ai_backend
 dataclasses-json==0.6.3
 debugpy==1.8.0
 decorator==5.1.1
