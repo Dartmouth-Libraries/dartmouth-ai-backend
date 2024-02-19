@@ -57,17 +57,7 @@ class DartmouthChatModel(HuggingFaceTextGenInference):
         self.client.headers = {"Authorization": f"Bearer {jwt}"}
 
     def invoke(self, text: str, **kwargs) -> str:
-        """Invokes the model to get a response to a query.
-
-        Args:
-            text (str): The initial text, i.e., user query. If not properly formatted, it is wrapped in Llama-compatible tags:
-            '<s>[INST]USER PROMPT GOES HERE[/INST]'
-
-        Returns:
-            str: The model response.
-        """
-        if not text.startswith("<s>[INST]"):
-            text = f"<s>[INST]{text}[/INST]"
+        """Invokes the model to get a response to a query."""
         try:
             return super().invoke(text, **kwargs)
         except KeyError:
