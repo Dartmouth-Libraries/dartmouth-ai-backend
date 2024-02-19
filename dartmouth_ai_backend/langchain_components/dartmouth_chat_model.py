@@ -56,10 +56,10 @@ class DartmouthChatModel(HuggingFaceTextGenInference):
             )
         self.client.headers = {"Authorization": f"Bearer {jwt}"}
 
-    def invoke(self, text: str, **kwargs) -> str:
+    def invoke(self, *args, **kwargs) -> str:
         """Invokes the model to get a response to a query."""
         try:
-            return super().invoke(text, **kwargs)
+            return super().invoke(*args, **kwargs)
         except KeyError:
             self.authenticate()
-            return super().invoke(text, **kwargs)
+            return super().invoke(*args, **kwargs)
