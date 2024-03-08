@@ -47,6 +47,14 @@ def test_dartmouth_chat():
     )
     print(llm.invoke("<s>[INST]Hello[/INST]"))
 
+    llm = DartmouthChatModel(model_name="llama-2-7b-32k-instruct")
+    print(
+        llm.invoke(
+            "[INST]\nWrite a poem about cats\n[/INST]\n\n",
+            stop_sequences=["[INST]"],
+        )
+    )
+
 
 def test_dartmouth_embeddings():
     embeddings = DartmouthEmbeddings()
