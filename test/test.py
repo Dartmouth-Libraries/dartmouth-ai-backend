@@ -1,6 +1,7 @@
 from dartmouth_ai_backend.object_detection import ObjectDetector
 from dartmouth_ai_backend.base.auth import get_jwt
 from dartmouth_ai_backend.langchain_components import DartmouthChatModel
+from dartmouth_ai_backend.langchain_components import DartmouthEmbeddings
 from dartmouth_ai_backend.language_detection import LanguageDetector
 from dartmouth_ai_backend.named_entity_recognition import NamedEntityRecognizer
 from dartmouth_ai_backend.sentiment_analysis import SentimentAnalyzer
@@ -45,6 +46,12 @@ def test_dartmouth_chat():
         inference_server_url="https://ai-api.dartmouth.edu/tgi/codellama-13b-instruct-hf/",
     )
     print(llm.invoke("<s>[INST]Hello[/INST]"))
+
+
+def test_dartmouth_embeddings():
+    embeddings = DartmouthEmbeddings()
+    result = embeddings.embed_query("Is there anybody out there?")
+    assert result
 
 
 def test_language_detection():
@@ -102,11 +109,12 @@ def test_speech_recognition():
 
 
 if __name__ == "__main__":
-    # test_auth()
+    test_auth()
     test_dartmouth_chat()
-    # test_language_detection()
-    # test_named_entity_recognition()
-    # test_object_detection()
-    # test_speech_recognition()
-    # test_speaker_diarization()
-    # test_citations()
+    test_language_detection()
+    test_named_entity_recognition()
+    test_object_detection()
+    test_speech_recognition()
+    test_speaker_diarization()
+    test_citations()
+    test_dartmouth_embeddings()
